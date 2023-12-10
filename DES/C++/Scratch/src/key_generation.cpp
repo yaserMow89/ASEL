@@ -27,8 +27,8 @@ std::string genKey() {
     return keyBits.to_string();
 }
 
-
 void generateSubkeys(const std::string& key, std::string subkeys[16]) {
+
     // Permutation choice 1 (PC-1)
     const int pc1[56] = { 57, 49, 41, 33, 25, 17, 9,
                           1, 58, 50, 42, 34, 26, 18,
@@ -84,20 +84,21 @@ void generateSubkeys(const std::string& key, std::string subkeys[16]) {
     }
 }
 
-int main() {
-    // Manually define a 64-bit key for testing
-    std::string key = genKey();
 
-    // Array to store 16 subkeys, each as a string
-    std::string subkeys[16];
+// The following is only for testing purpose
+// int main() {
+//     std::string key = genKey();
 
-    // Generate subkeys
-    generateSubkeys(key, subkeys);
+//     // Array to store 16 subkeys, each as a string
+//     std::string subkeys[16];
 
-    // Display the generated subkeys
-    for (int i = 0; i < 16; ++i) {
-        std::cout << "Subkey " << i + 1 << ": " << subkeys[i] << " (Binary representation)" << std::endl;
-    }
+//     // Generate subkeys
+//     generateSubkeys(key, subkeys);
 
-    return 0;
-}
+//     // Display the generated subkeys
+//     for (int i = 0; i < 16; ++i) {
+//         std::cout << "Subkey " << i + 1 << ": " << subkeys[i] << " (Binary representation)" << std::endl;
+//     }
+
+//     return 0;
+// }
