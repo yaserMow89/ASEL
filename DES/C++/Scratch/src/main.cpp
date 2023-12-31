@@ -331,6 +331,28 @@ string desEnc(){
 	return ciphertext; 
 }
 
+string desDecryption(string ciphertext) {
+    // Code for key reversal
+    int i = 15;
+    int j = 0;
+    while (i > j) {
+        string temp = round_keys[i];
+        round_keys[i] = round_keys[j];
+        round_keys[j] = temp;
+        i--;
+        j++;
+    }
+
+    // Set the ciphertext for decryption
+    pt = ciphertext;
+
+    // Perform DES decryption
+    string decrypted = desEnc();
+
+    // Return the decrypted text
+    return decrypted;
+}
+
 std::string genKey() {
     const int keySize = 64;
     std::bitset<keySize> keyBits;
@@ -354,47 +376,29 @@ std::string genKey() {
 }
 
 
-// Ends the key Generation
-
-
-// Suplementry files
-// #include "key_gen.cpp"
-// #include "enc.cpp"
-// #include "dec.cpp"
-
-
 int main () {
-  // std::string my_key = genKey(); 
-  std::string my_key = "1010101010111011000010010001100000100111001101101100110011011101";
+  std::string my_key = genKey();     
+    generate_keys(my_key);
+    // cout << "The key is: " << my_key << endl;
+    // std::string my_key = "1010101010111011000010010001100000100111001101101100110011011101";
 
-  generate_keys(my_key);
-	std:: string ptString = "YASERMOW";
+
+    std:: string ptString = "THISISFOs";
+
+    pt= stringToBinary(ptString); // converting the pt string in the binary format
 	
-  pt= stringToBinary(ptString);
-	string apt = pt;
-  cout << "Plain text hex: "<< binaryToHex(apt)<<endl;
-  cout << "plain text: " << apt << endl;
-  string ct = desEnc();
-  cout << "cipher text: " <<ct << endl; 
-  cout << "cipher text hex: " <<binaryToHex(ct) << endl; 
+    string apt = pt;
+    cout << "Plain text hex: "<< binaryToHex(apt)<<endl;
+    // cout << "plain text: " << apt << endl;
+    string ct = desEnc();
+    // cout << "cipher text: " <<ct << endl; 
+    // cout << "cipher text hex: " <<binaryToHex(ct) << endl; 
 
-// Reversing the round_keys array for decryption
-	int i = 15;
-	int j = 0;
-	while(i > j)
-	{
-		string temp = round_keys[i];
-		round_keys[i] = round_keys[j];
-		round_keys[j] = temp;
-		i--;
-		j++;
-	}
-  pt = ct; 
-  string decrypted = desEnc();
-  cout << "decrypted text: "<<decrypted<<endl;
-  cout << "decrypted hex: " << binaryToHex(decrypted)<<endl;
+    string decrypted = desDecryption(ct);
+
+    //   cout << "decrypted text: "<<decrypted<<endl;
+    cout << "decrypted hex: " << binaryToHex(decrypted)<<endl;
 
   return 0;
 }
-
 
